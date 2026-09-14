@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astropia | Ethiopian Astronomy & Eclipse Tracker</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">✨</span> ASTROPIA
+    </div>
+    <div class="live-clock">
+      <span id="ethiopian-now">Loading Ethiopian Time...</span>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Hero / Next Eclipse Card -->
+    <section class="hero-card">
+      <div class="badge">UPCOMING CELESTIAL EVENT</div>
+      <h1 id="eclipse-title">Solar Eclipse</h1>
+      <p id="eclipse-desc" class="subtitle">Fetching eclipse trajectory...</p>
+
+      <!-- Countdown Display -->
+      <div class="countdown-grid">
+        <div class="time-box">
+          <span id="days" class="number">00</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="time-box">
+          <span id="hours" class="number">00</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="time-box">
+          <span id="minutes" class="number">00</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="time-box">
+          <span id="seconds" class="number">00</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+
+      <!-- Time Translation Info -->
+      <div class="time-details">
+        <div class="detail-item">
+          <strong>Ethiopian Date & Time:</strong>
+          <span id="ethiopian-event-time">--</span>
+        </div>
+        <div class="detail-item">
+          <strong>Gregorian UTC Time:</strong>
+          <span id="gregorian-event-time">--</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Section for ESSCommunity -->
+    <section class="info-section">
+      <h2>About Astropia</h2>
+      <p>
+        Astropia bridges modern astrophysical data with Ethiopian localized timekeeping, providing the Ethiopian Space Science Community (ESSCommunity) with accurate eclipse tracking and observational guides.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; Astropia Community Project — Open Source for ESSCommunity</p>
+  </footer>
+
+  <script src="assets/js/ethiopian-calendar.js"></script>
+  <script src="assets/js/countdown.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
