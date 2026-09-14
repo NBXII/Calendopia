@@ -1,0 +1,264 @@
+/* ==========================================================================
+   ASTRONOMICAL ASTROLABE ROTARY MECHANICS - VOID EDITION
+   ========================================================================== */
+
+.astrolabe-viewport {
+  width: 100%;
+}
+
+.astrolabe-card {
+  background: var(--bg-card-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.95);
+  width: 100%;
+}
+
+.astrolabe-crown {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.crown-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  color: var(--cyan-primary);
+  font-weight: 700;
+}
+.crown-subtitle {
+  font-size: 0.55rem;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+}
+
+/* Alignment Laser Lens Assembly */
+.astrolabe-pointer-assembly {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.pointer-jewel-top {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan-light);
+  box-shadow: 0 0 12px var(--cyan-primary), 0 0 24px var(--cyan-primary);
+}
+
+.pointer-laser {
+  width: 2px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--cyan-light) 0%, rgba(0,243,255,0) 100%);
+  box-shadow: 0 0 10px var(--cyan-primary);
+}
+
+.lens-viewfinder {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan-primary);
+  box-shadow: 0 0 18px var(--cyan-glow), inset 0 0 8px var(--cyan-glow);
+  margin-top: -24px;
+  background: rgba(0, 243, 255, 0.04);
+  backdrop-filter: blur(2px);
+}
+
+/* Scalable Responsive Wheel Stage */
+.astrolabe-stage {
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.rotary-wheel-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.astrolabe-svg-element {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.astrolabe-svg-element:active {
+  cursor: grabbing;
+}
+
+/* Void Metallic SVG Rings */
+.ring-void-outer {
+  fill: none;
+  stroke: url(#cyanLinear);
+  stroke-width: 2.5;
+  opacity: 0.8;
+}
+.ring-void-dashed {
+  fill: none;
+  stroke: var(--cyan-primary);
+  stroke-width: 1.2;
+  stroke-dasharray: 4, 8;
+  opacity: 0.4;
+}
+.ring-void-mid {
+  fill: none;
+  stroke: var(--cyan-dark);
+  stroke-width: 1.8;
+  opacity: 0.5;
+}
+.ring-void-inner {
+  fill: none;
+  stroke: var(--violet-accent);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+/* SVG Text Nodes */
+.svg-geez-text {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  fill: var(--text-dim);
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transition: fill 0.3s ease, font-size 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.svg-geez-text.focused-node {
+  fill: var(--cyan-light);
+  font-size: 24px;
+  font-weight: 900;
+  opacity: 1;
+  filter: url(#cyanGlow);
+}
+
+.svg-greg-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  fill: var(--text-dim);
+  text-anchor: middle;
+  letter-spacing: 1px;
+}
+
+/* Central Mechanical Core */
+.center-hub-display {
+  position: absolute;
+  width: 36%;
+  height: 36%;
+  border-radius: 50%;
+  background: url(#hubDepthGradient), radial-gradient(circle, #081220 0%, #000002 100%);
+  border: 1.5px solid var(--cyan-primary);
+  box-shadow: 0 0 35px rgba(0,0,0,0.95), inset 0 0 20px var(--cyan-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.hub-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hub-year-badge {
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--cyan-primary);
+  font-family: var(--font-serif);
+}
+
+.hub-geez-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 2px 0;
+}
+
+.hub-en-subtitle {
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--text-starlight);
+}
+
+.hub-meta-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  background: rgba(0,0,0,0.8);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+}
+
+.hub-dot { color: var(--cyan-primary); }
+
+/* Footer Controls Bar */
+.astrolabe-footer-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bg-card-border);
+}
+
+.btn-tactile-cyan {
+  background: var(--bg-obsidian-surface);
+  border: 1px solid var(--cyan-primary);
+  color: var(--cyan-primary);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fluid);
+}
+
+.btn-tactile-cyan:hover {
+  background: var(--cyan-primary);
+  color: var(--bg-deep-void);
+  box-shadow: 0 0 15px var(--cyan-glow);
+}
+
+.timeline-indicator-readout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.65rem;
+}

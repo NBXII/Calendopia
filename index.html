@@ -2,191 +2,205 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Astropia — Deep Space Chronology & Eclipse Observatory</title>
-  <meta name="description" content="Astropia: Atmospheric astronomical observation, Ge'ez chronology, and dynamic orbital tracking.">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Calendopia | Void Chronology</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@200;300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="void-root">
 
-  <!-- Deep Atmospheric Background Engine Canvas -->
-  <canvas id="spaceEngineCanvas"></canvas>
-  <div class="mist-overlay"></div>
+  <!-- Ambient Background Lighting & Canvas Particles -->
+  <div class="ambient-light-1"></div>
+  <div class="ambient-light-2"></div>
+  <canvas id="stardustCanvas" class="stardust-canvas"></canvas>
 
-  <!-- Main Observatory Header -->
-  <header class="astropia-header">
-    <div class="header-inner">
-      <a href="#" class="brand-container">
-        <svg class="brand-symbol" viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4"/>
-          <circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="1"/>
-          <circle cx="20" cy="20" r="2" fill="currentColor"/>
-        </svg>
+  <div class="app-viewport">
+    
+    <!-- Header Chronometer Bar -->
+    <header class="app-header glass-card">
+      <div class="brand">
+        <div class="brand-symbol">፳</div>
         <div class="brand-text">
-          <span class="brand-title">ASTROPIA</span>
-          <span class="brand-tag">ETHIOPIAN ASTRONOMICAL SYSTEM</span>
+          <h1>CALENDOPIA</h1>
+          <span>VOID ASTRONOMICAL CHRONOLOGY</span>
         </div>
-      </a>
+      </div>
 
-      <nav class="nav-links">
-        <a href="#observatory" class="nav-item active">Observatory</a>
-        <a href="#chronology" class="nav-item">Chronology</a>
-        <a href="#telemetry" class="nav-item">Telemetry</a>
-      </nav>
+      <div class="dual-clock">
+        <div class="clock-unit">
+          <span class="clock-title">ETHIOPIAN TIME</span>
+          <span id="ethioTimeVal" class="clock-main">--:--:--</span>
+          <span id="ethioDateVal" class="clock-sub">---, --- --</span>
+        </div>
+        <div class="clock-sep"></div>
+        <div class="clock-unit">
+          <span class="clock-title">GREGORIAN</span>
+          <span id="gregTimeVal" class="clock-main">--:--:--</span>
+          <span id="gregDateVal" class="clock-sub">--- --, ----</span>
+        </div>
+      </div>
+    </header>
 
-      <button id="systemStatus" class="status-pill">
-        <svg class="icon-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
-        <span>LIVE EPHEMERIS</span>
-      </button>
-    </div>
-  </header>
+    <!-- Main Workspace Split Layout -->
+    <main class="main-layout">
 
-  <main>
-    <!-- Primary Visual & Telemetry Canvas Viewport -->
-    <section id="observatory" class="viewport-section">
-      <div class="viewport-layout">
+      <!-- SECTION 1: Astronomical Wheel Selector -->
+      <section class="card astrolabe-card glass-card">
+        <div class="card-head">
+          <h2>ASTRONOMICAL DIAL</h2>
+          <p>Drag, swipe wheel, or press buttons to traverse months</p>
+        </div>
+
+        <!-- Astrolabe Wheel Stage -->
+        <div class="wheel-stage" id="wheelStage">
+          <!-- Optical Lens Pointer -->
+          <div class="lens-pointer">
+            <div class="pointer-head"></div>
+            <div class="pointer-line"></div>
+          </div>
+
+          <!-- Outer Decorative Rings -->
+          <div class="dial-ring-outer"></div>
+          <div class="dial-ring-inner"></div>
+
+          <!-- Rotating Dial Wheel -->
+          <div class="dial-wheel" id="dialWheel">
+            <!-- 13 Month Nodes dynamically populated -->
+          </div>
+
+          <!-- Central Core Hub -->
+          <div class="dial-center-hub">
+            <span id="hubYearLabel" class="hub-year">2019 E.C.</span>
+            <span id="hubGeezMonth" class="hub-geez">መስከረም</span>
+            <span id="hubEnMonth" class="hub-en">MESKEREM</span>
+            <div class="hub-pill">
+              <span id="hubMonthIndex">01 / 13</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wheel Bottom Controls -->
+        <div class="wheel-controls">
+          <button id="todayBtn" class="btn btn-gold">PRESENT TIME</button>
+          <div class="year-control">
+            <button id="prevYearBtn" class="btn-icon" aria-label="Previous Year">&minus;</button>
+            <span id="yearReadout">2019 E.C.</span>
+            <button id="nextYearBtn" class="btn-icon" aria-label="Next Year">&plus;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: Responsive Inspector & Calendar Matrix -->
+      <section class="card dashboard-card glass-card">
         
-        <!-- Left Column: Fluid Text & Chronology Readouts -->
-        <div class="hero-content">
-          <div class="epoch-badge">
-            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
-            EAST AFRICA SYZYGY EVENT
+        <!-- Tab Navigation Bar -->
+        <nav class="dash-nav">
+          <button class="nav-tab active" data-tab="calendarTab">MONTHLY CALENDAR</button>
+          <button class="nav-tab" data-tab="inspectorTab">MONTH METRICS</button>
+          <button class="nav-tab" data-tab="converterTab">SYNC ENGINE</button>
+        </nav>
+
+        <!-- TAB 1: Complete Month Calendar Grid (Replaces Horizontal Scroll) -->
+        <div id="calendarTab" class="tab-panel active">
+          <div class="panel-header">
+            <div>
+              <span class="label">FULL MONTH VIEW</span>
+              <h3 id="calTitle" class="panel-title">MESKEREM (መስከረም)</h3>
+            </div>
+            <span id="evangelistBadge" class="badge gold-badge">Zemen Yohannes</span>
           </div>
 
-          <h1 class="hero-heading">
-            Total Solar <br><span class="ambient-glow-text">Alignment</span>
-          </h1>
+          <!-- Days of Week Header Bar -->
+          <div class="week-header-grid">
+            <div><span>እሁድ</span><small>SUN</small></div>
+            <div><span>ሰኞ</span><small>MON</small></div>
+            <div><span>ማክሰ</span><small>TUE</small></div>
+            <div><span>ረቡዕ</span><small>WED</small></div>
+            <div><span>ሐሙስ</span><small>THU</small></div>
+            <div><span>ዓርብ</span><small>FRI</small></div>
+            <div><span>ቅዳሜ</span><small>SAT</small></div>
+          </div>
 
-          <p class="hero-description">
-            Continuous orbital positioning and localized Ge'ez chronological calculation for high-altitude atmospheric observations over northern Ethiopia.
-          </p>
+          <!-- 7x5 Days Calendar Grid Layout -->
+          <div class="days-calendar-grid" id="daysGrid">
+            <!-- 30 Calendar Days rendered dynamically -->
+          </div>
 
-          <!-- Dual Calendar Display (Frameless) -->
-          <div class="dual-chronology">
-            <div class="chrono-item">
-              <span class="chrono-label">GREGORIAN EPHEMERIS</span>
-              <span class="chrono-value" id="gregorianReadout">August 2, 2027</span>
-              <span class="chrono-sub">13:42:00 UTC / EAT</span>
+          <div class="calendar-footer">
+            <span id="selectedDayLabel">SELECTED DAY: 01 Meskerem 2019</span>
+            <span id="holidayNotice" class="holiday-pill">Enkutatash (New Year)</span>
+          </div>
+        </div>
+
+        <!-- TAB 2: Inspector Panel -->
+        <div id="inspectorTab" class="tab-panel">
+          <div class="panel-header">
+            <h3>ASTRONOMICAL & CULTURAL METRICS</h3>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-box">
+              <span class="info-label">SEASON / ወራት</span>
+              <span id="infoSeason" class="info-val">Tsedey (Spring)</span>
             </div>
-
-            <div class="chrono-divider"></div>
-
-            <div class="chrono-item gold-highlight">
-              <span class="chrono-label">ETHIOPIAN CALENDAR (የኢትዮጵያ)</span>
-              <span class="chrono-value" id="ethiopianDateReadout">ሐምሌ 26, 2019 ዓ.ም</span>
-              <span class="chrono-sub" id="ethiopianTimeReadout">ቀን 7:42 ከሰዓት</span>
+            <div class="info-box">
+              <span class="info-label">HOLIDAYS & FEASTS</span>
+              <span id="infoHolidays" class="info-val">Enkutatash (New Year)</span>
+            </div>
+            <div class="info-box">
+              <span class="info-label">GREGORIAN SPAN</span>
+              <span id="infoGregSpan" class="info-val">Sep 11 - Oct 10</span>
+            </div>
+            <div class="info-box">
+              <span class="info-label">TOTAL DAYS IN MONTH</span>
+              <span id="infoDaysCount" class="info-val">30 Days</span>
             </div>
           </div>
 
-          <!-- Countdown Floating Track -->
-          <div class="countdown-track">
-            <div class="track-unit">
-              <span class="unit-val" id="cdDays">000</span>
-              <span class="unit-name">DAYS</span>
+          <div class="astronomical-meta">
+            <div class="meta-row">
+              <span>JULIAN DAY NUMBER (JDN)</span>
+              <span id="jdnVal" class="mono">2,461,300.5</span>
             </div>
-            <span class="unit-sep">/</span>
-            <div class="track-unit">
-              <span class="unit-val" id="cdHours">00</span>
-              <span class="unit-name">HOURS</span>
-            </div>
-            <span class="unit-sep">/</span>
-            <div class="track-unit">
-              <span class="unit-val" id="cdMins">00</span>
-              <span class="unit-name">MINUTES</span>
-            </div>
-            <span class="unit-sep">/</span>
-            <div class="track-unit">
-              <span class="unit-val" id="cdSecs">00</span>
-              <span class="unit-name">SECONDS</span>
+            <div class="meta-row">
+              <span>SOLAR TIME OFFSET</span>
+              <span class="mono">+6 Hours Relative to UTC</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Interactive Solar System / Eclipse Stage -->
-        <div class="simulation-stage">
-          <div class="stage-container">
-            <canvas id="eclipseStageCanvas" width="540" height="540"></canvas>
-            <div class="stage-overlay-info">
-              <span class="readout-text" id="phaseReadout">TOTALITY PROGRESS: 0.0%</span>
-              <button id="toggleOrbitalMode" class="btn-ghost">
-                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>CHRONO SIMULATION</span>
-              </button>
+        <!-- TAB 3: Converter Sync Engine -->
+        <div id="converterTab" class="tab-panel">
+          <div class="panel-header">
+            <h3>DATE CONVERSION ENGINE</h3>
+          </div>
+
+          <div class="converter-wrapper">
+            <div class="field-group">
+              <label for="gregInput">GREGORIAN CALENDAR DATE</label>
+              <input type="date" id="gregInput" class="void-input">
+            </div>
+
+            <div class="converter-result">
+              <span class="result-label">ETHIOPIAN CHRONOLOGY EQUIVALENT</span>
+              <h2 id="ethioResultGeez" class="result-geez">መስከረም ፩, ፪ሽ፲፱</h2>
+              <p id="ethioResultEn" class="result-en">Meskerem 01, 2019 E.C.</p>
+              <span id="ethioResultWeekday" class="result-weekday">Maksagno (Tuesday)</span>
             </div>
           </div>
         </div>
 
-      </div>
-    </section>
+      </section>
 
-    <!-- Interactive Chronology Section -->
-    <section id="chronology" class="chronology-section">
-      <div class="section-content">
-        <h2 class="section-title">Ethiopian Chronological Engine</h2>
-        <p class="section-subtitle">Real-time solar position matching with the Ge'ez 13-month calendar structure.</p>
+    </main>
 
-        <div class="chronology-control">
-          <div class="input-floating-group">
-            <label for="dateInput">Select Gregorian Target Ephemeris</label>
-            <input type="date" id="dateInput" value="2027-08-02">
-          </div>
+  </div>
 
-          <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-
-          <div class="output-floating-group">
-            <label>Calculated Ge'ez Translation</label>
-            <div class="output-value" id="convertedOutput">ሐምሌ 26, 2019 ዓ.ም</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Telemetry Cards (Organic Glass Flow) -->
-    <section id="telemetry" class="telemetry-section">
-      <div class="section-content">
-        <div class="cards-flow">
-          
-          <div class="flow-card">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><line x1="3.6" y1="9" x2="20.4" y2="9"/><line x1="3.6" y1="15" x2="20.4" y2="15"/></svg>
-            </div>
-            <h3>Atmospheric Path</h3>
-            <p>High altitude trajectory across northern East Africa providing minimal moisture absorption for solar corona spectroscopy.</p>
-          </div>
-
-          <div class="flow-card">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18M5.3 5.3l13.4 13.4M5.3 18.7L18.7 5.3"/></svg>
-            </div>
-            <h3>Ge'ez Calendar Mechanics</h3>
-            <p>12 months of 30 days plus Pagumē (5 or 6 leap days), shifting solar alignment calculations precisely relative to standard UTC.</p>
-          </div>
-
-          <div class="flow-card">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-            </div>
-            <h3>Observation Physics</h3>
-            <p>Direct thermal shielding and filter protocols optimized for Ethiopian plateau sky clarity during partial phases.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="astropia-footer">
-    <div class="footer-content">
-      <span class="footer-title">ASTROPIA OBSERVATORY NETWORK</span>
-      <span class="footer-sub">&copy; 2026 Space Science & Ge'ez Chronology Engine</span>
-    </div>
-  </footer>
-
-  <script type="module" src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
