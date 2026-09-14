@@ -3,19 +3,18 @@ import { toEthiopianDate, toEthiopianTime } from './ethiopianDate.js';
 // Total Solar Eclipse Target Ephemeris
 const TARGET_ECLIPSE = new Date("2027-08-02T13:42:00");
 let isChronoSim = true;
-let simulatedDate = new Date(TARGET_ECLIPSE);
 
 document.addEventListener("DOMContentLoaded", () => {
-  initStardustCanvas();
+  initSpaceEngineCanvas();
   initOrbitalStageCanvas();
   initCountdown();
   initChronologyConverter();
   updateReadouts(TARGET_ECLIPSE);
 });
 
-// Ambient Floating Stardust & Deep Space Particle Field
-function initStardustCanvas() {
-  const canvas = document.getElementById("dustCanvas");
+// Deep Void Space Background Engine (Multi-depth Particles + Dynamic Shooting Stars)
+function initSpaceEngineCanvas() {
+  const canvas = document.getElementById("spaceEngineCanvas");
   const ctx = canvas.getContext("2d");
 
   let width = canvas.width = window.innerWidth;
@@ -26,18 +25,56 @@ function initStardustCanvas() {
     height = canvas.height = window.innerHeight;
   });
 
-  const particles = Array.from({ length: 90 }, () => ({
+  // Multi-layered floating cosmic dust particles
+  const particles = Array.from({ length: 140 }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
-    radius: Math.random() * 1.2 + 0.3,
-    alpha: Math.random() * 0.6 + 0.1,
-    vx: (Math.random() - 0.5) * 0.15,
-    vy: (Math.random() - 0.5) * 0.15
+    radius: Math.random() * 1.5 + 0.2,
+    alpha: Math.random() * 0.7 + 0.1,
+    baseAlpha: Math.random() * 0.5 + 0.1,
+    pulseSpeed: Math.random() * 0.02 + 0.005,
+    pulseAngle: Math.random() * Math.PI * 2,
+    vx: (Math.random() - 0.5) * 0.1,
+    vy: (Math.random() - 0.5) * 0.1,
+    layer: Math.random() < 0.2 ? 'gold' : 'silver'
   }));
+
+  // Dynamic Shooting Stars Pool
+  let shootingStars = [];
+
+  function spawnShootingStar() {
+    const startX = Math.random() * width * 1.2 - width * 0.1;
+    const startY = Math.random() * height * 0.5;
+    const length = Math.random() * 150 + 80;
+    const speed = Math.random() * 12 + 8;
+    const angle = (Math.PI / 180) * (Math.random() * 15 + 35); // 35 - 50 deg angle
+
+    shootingStars.push({
+      x: startX,
+      y: startY,
+      dx: Math.cos(angle) * speed,
+      dy: Math.sin(angle) * speed,
+      length: length,
+      life: 1.0,
+      decay: Math.random() * 0.015 + 0.01
+    });
+  }
+
+  // Random shooting star scheduler (every 4-9 seconds)
+  function scheduleShootingStar() {
+    const delay = Math.random() * 5000 + 4000;
+    setTimeout(() => {
+      spawnShootingStar();
+      scheduleShootingStar();
+    }, delay);
+  }
+
+  scheduleShootingStar();
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
+    // 1. Draw Organic Floating Void Dust
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
@@ -47,9 +84,47 @@ function initStardustCanvas() {
       if (p.y < 0) p.y = height;
       if (p.y > height) p.y = 0;
 
-      ctx.fillStyle = `rgba(229, 190, 107, ${p.alpha})`;
+      p.pulseAngle += p.pulseSpeed;
+      p.alpha = p.baseAlpha + Math.sin(p.pulseAngle) * 0.25;
+
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.layer === 'gold' 
+        ? `rgba(229, 190, 107, ${Math.max(0, p.alpha)})`
+        : `rgba(200, 210, 230, ${Math.max(0, p.alpha * 0.8)})`;
+      ctx.fill();
+    });
+
+    // 2. Render Atmospheric Shooting Stars
+    shootingStars.forEach((star, index) => {
+      star.x += star.dx;
+      star.y += star.dy;
+      star.life -= star.decay;
+
+      if (star.life <= 0) {
+        shootingStars.splice(index, 1);
+        return;
+      }
+
+      const tailX = star.x - (star.dx / Math.hypot(star.dx, star.dy)) * star.length;
+      const tailY = star.y - (star.dy / Math.hypot(star.dx, star.dy)) * star.length;
+
+      const gradient = ctx.createLinearGradient(star.x, star.y, tailX, tailY);
+      gradient.addColorStop(0, `rgba(255, 245, 220, ${star.life})`);
+      gradient.addColorStop(0.3, `rgba(229, 190, 107, ${star.life * 0.6})`);
+      gradient.addColorStop(1, 'rgba(229, 190, 107, 0)');
+
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = gradient;
+      ctx.beginPath();
+      ctx.moveTo(star.x, star.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+
+      // Bright Head Flare
+      ctx.fillStyle = `rgba(255, 255, 255, ${star.life})`;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, 1.2, 0, Math.PI * 2);
       ctx.fill();
     });
 
@@ -75,11 +150,11 @@ function initOrbitalStageCanvas() {
     const cY = canvas.height / 2;
     const sunRadius = 65;
 
-    // Atmospheric Solar Corona Glow
+    // Corona Glow
     const coronaGradient = ctx.createRadialGradient(cX, cY, sunRadius * 0.8, cX, cY, sunRadius * 2.8);
     coronaGradient.addColorStop(0, 'rgba(255, 235, 180, 0.85)');
-    coronaGradient.addColorStop(0.25, 'rgba(229, 190, 107, 0.25)');
-    coronaGradient.addColorStop(0.6, 'rgba(120, 150, 220, 0.08)');
+    coronaGradient.addColorStop(0.25, 'rgba(229, 190, 107, 0.22)');
+    coronaGradient.addColorStop(0.6, 'rgba(90, 120, 190, 0.06)');
     coronaGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.fillStyle = coronaGradient;
@@ -96,23 +171,23 @@ function initOrbitalStageCanvas() {
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Dynamic Moon Positioning (Calculated by Simulation Mode)
-    let offsetRatio = isChronoSim ? Math.sin(animProgress) : 0; // 0 = Totality Alignment
+    // Dynamic Moon Position Offset
+    let offsetRatio = isChronoSim ? Math.sin(animProgress) : 0;
     const moonX = cX + (offsetRatio * 90);
     const moonY = cY + (offsetRatio * 15);
 
     // Moon Disc
-    ctx.fillStyle = '#030306';
+    ctx.fillStyle = '#020204';
     ctx.beginPath();
     ctx.arc(moonX, moonY, sunRadius + 0.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // Atmosphere Rim Glow on Moon Shadow
-    ctx.strokeStyle = 'rgba(229, 190, 107, 0.3)';
+    // Subtle Rim Light
+    ctx.strokeStyle = 'rgba(229, 190, 107, 0.25)';
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Calculate Totality Percentage
+    // Alignment Calculation
     const alignmentPercent = Math.max(0, (100 - (Math.abs(offsetRatio) * 100))).toFixed(1);
     phaseReadout.textContent = `ALIGNMENT: ${alignmentPercent}% OVER EAST AFRICA`;
 

@@ -1,14 +1,14 @@
 /* ==========================================================================
-   ASTROPIA — Atmospheric Space Science System (Minimalist / Fluid)
+   ASTROPIA — Deep Void Atmospheric Space Interface
    ========================================================================== */
 
 :root {
-  --bg-space: #030306;
+  --bg-space: #020204;
   --text-main: #e2e4ed;
-  --text-dim: #797c94;
+  --text-dim: #6e728e;
   --accent-gold: #e5be6b;
-  --accent-gold-glow: rgba(229, 190, 107, 0.18);
-  --accent-blue-glow: rgba(90, 130, 220, 0.12);
+  --accent-gold-glow: rgba(229, 190, 107, 0.12);
+  --accent-blue-glow: rgba(70, 110, 200, 0.08);
 
   --font-title: 'Cinzel', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
@@ -34,8 +34,8 @@ body {
   position: relative;
 }
 
-/* Fluid Atmospheric Canvas Background */
-#dustCanvas {
+/* Atmospheric Multi-Layer Canvas */
+#spaceEngineCanvas {
   position: fixed;
   top: 0;
   left: 0;
@@ -54,10 +54,10 @@ body {
   z-index: -1;
   pointer-events: none;
   background: 
-    radial-gradient(circle at 20% 30%, var(--accent-gold-glow) 0%, transparent 60%),
-    radial-gradient(circle at 80% 70%, var(--accent-blue-glow) 0%, transparent 65%);
-  filter: blur(80px);
-  opacity: 0.8;
+    radial-gradient(circle at 25% 25%, var(--accent-gold-glow) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, var(--accent-blue-glow) 0%, transparent 60%);
+  filter: blur(100px);
+  opacity: 0.9;
 }
 
 /* Header */
@@ -67,8 +67,8 @@ body {
   width: 100%;
   z-index: 50;
   padding: 1.5rem 3rem;
-  background: linear-gradient(to bottom, rgba(3, 3, 6, 0.8), rgba(3, 3, 6, 0));
-  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, rgba(2, 2, 4, 0.85), rgba(2, 2, 4, 0));
+  backdrop-filter: blur(12px);
 }
 
 .header-inner {
@@ -126,7 +126,7 @@ body {
 }
 
 .status-pill {
-  background: rgba(229, 190, 107, 0.05);
+  background: rgba(229, 190, 107, 0.04);
   border: none;
   color: var(--accent-gold);
   padding: 0.4rem 0.9rem;
@@ -150,7 +150,7 @@ body {
   50% { opacity: 1; }
 }
 
-/* Viewport Main Layout */
+/* Viewport Section */
 .viewport-section {
   min-height: 100vh;
   display: flex;
@@ -191,7 +191,7 @@ body {
 
 .ambient-glow-text {
   color: var(--accent-gold);
-  text-shadow: 0 0 30px rgba(229, 190, 107, 0.25);
+  text-shadow: 0 0 35px rgba(229, 190, 107, 0.3);
 }
 
 .hero-description {
@@ -203,7 +203,7 @@ body {
   margin-bottom: 3rem;
 }
 
-/* Frameless Dual Chronology Display */
+/* Chronology Readout */
 .dual-chronology {
   display: flex;
   align-items: center;
@@ -287,7 +287,7 @@ body {
 #eclipseStageCanvas {
   max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 0 50px rgba(229, 190, 107, 0.15));
+  filter: drop-shadow(0 0 60px rgba(229, 190, 107, 0.12));
 }
 
 .stage-overlay-info {
@@ -325,7 +325,7 @@ body {
   opacity: 1;
 }
 
-/* Chronology & Telemetry Sections */
+/* Section Components */
 .chronology-section, .telemetry-section {
   padding: 6rem 3rem;
   max-width: 1400px;
@@ -355,8 +355,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.015);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.008);
+  backdrop-filter: blur(24px);
   padding: 2.5rem;
   border-radius: 24px;
 }
@@ -373,7 +373,7 @@ body {
 #dateInput {
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(229, 190, 107, 0.4);
+  border-bottom: 1px solid rgba(229, 190, 107, 0.3);
   color: var(--text-main);
   font-family: var(--font-title);
   font-size: 1.4rem;
@@ -385,7 +385,7 @@ body {
   width: 24px;
   height: 24px;
   color: var(--accent-gold);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .output-value {
@@ -395,7 +395,7 @@ body {
   padding: 0.4rem 0;
 }
 
-/* Organic Flow Cards */
+/* Flow Cards */
 .cards-flow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -403,8 +403,8 @@ body {
 }
 
 .flow-card {
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.008);
+  backdrop-filter: blur(24px);
   padding: 2.5rem 2rem;
   border-radius: 20px;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -442,7 +442,7 @@ body {
 .astropia-footer {
   padding: 4rem 3rem;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .footer-title {
