@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Calendopia | Void Chronology</title>
+  <title>Calendopia | Vault Orbit Chronology Engine</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,32 +14,34 @@
 </head>
 <body class="void-root">
 
-  <!-- Ambient Background Lighting & Canvas Particles -->
+  <!-- Ambient Backdrop Glow & Canvas Particles -->
   <div class="ambient-light-1"></div>
   <div class="ambient-light-2"></div>
   <canvas id="stardustCanvas" class="stardust-canvas"></canvas>
 
   <div class="app-viewport">
     
-    <!-- Header Chronometer Bar -->
+    <!-- Realtime Header Chronometer Bar -->
     <header class="app-header glass-card">
       <div class="brand">
         <div class="brand-symbol">፳</div>
         <div class="brand-text">
           <h1>CALENDOPIA</h1>
-          <span>VOID ASTRONOMICAL CHRONOLOGY</span>
+          <span>ASTRONOMICAL CHRONOLOGY ENGINE</span>
         </div>
       </div>
 
       <div class="dual-clock">
+        <!-- Live Ethiopian Time in Full Ge'ez Numerals -->
         <div class="clock-unit">
-          <span class="clock-title">ETHIOPIAN TIME</span>
-          <span id="ethioTimeVal" class="clock-main">--:--:--</span>
-          <span id="ethioDateVal" class="clock-sub">---, --- --</span>
+          <span class="clock-title"><span class="status-tag">PRESENT</span> ETHIOPIAN TIME</span>
+          <span id="ethioTimeVal" class="clock-main geez-time">--:--:-- --</span>
+          <span id="ethioDateVal" class="clock-sub">--- --, ---- E.C.</span>
         </div>
         <div class="clock-sep"></div>
+        <!-- Live Gregorian Time -->
         <div class="clock-unit">
-          <span class="clock-title">GREGORIAN</span>
+          <span class="clock-title"><span class="status-tag">PRESENT</span> GREGORIAN TIME</span>
           <span id="gregTimeVal" class="clock-main">--:--:--</span>
           <span id="gregDateVal" class="clock-sub">--- --, ----</span>
         </div>
@@ -49,44 +51,61 @@
     <!-- Main Workspace Split Layout -->
     <main class="main-layout">
 
-      <!-- SECTION 1: Astronomical Wheel Selector -->
+      <!-- SECTION 1: Vault Gate Rotary Wheel Selector -->
       <section class="card astrolabe-card glass-card">
         <div class="card-head">
-          <h2>ASTRONOMICAL DIAL</h2>
-          <p>Drag, swipe wheel, or press buttons to traverse months</p>
+          <h2>ORBITAL VAULT ASTROLABE</h2>
+          <p>Drag individual rings to align dates. Ambient counter-rotation runs smoothly in the background.</p>
         </div>
 
-        <!-- Astrolabe Wheel Stage -->
+        <!-- Triple Ring Vault Stage -->
         <div class="wheel-stage" id="wheelStage">
-          <!-- Optical Lens Pointer -->
-          <div class="lens-pointer">
-            <div class="pointer-head"></div>
-            <div class="pointer-line"></div>
+          
+          <!-- Alignment Vault Reticle (Fixed Top Pointer) -->
+          <div class="vault-reticle">
+            <div class="reticle-notch"></div>
+            <div class="reticle-line"></div>
           </div>
 
-          <!-- Outer Decorative Rings -->
-          <div class="dial-ring-outer"></div>
-          <div class="dial-ring-inner"></div>
+          <!-- Vault Outer Metallic Bevel Ring with Teeth -->
+          <div class="vault-rim"></div>
 
-          <!-- Rotating Dial Wheel -->
-          <div class="dial-wheel" id="dialWheel">
-            <!-- 13 Month Nodes dynamically populated -->
-          </div>
-
-          <!-- Central Core Hub -->
-          <div class="dial-center-hub">
-            <span id="hubYearLabel" class="hub-year">2019 E.C.</span>
-            <span id="hubGeezMonth" class="hub-geez">መስከረም</span>
-            <span id="hubEnMonth" class="hub-en">MESKEREM</span>
-            <div class="hub-pill">
-              <span id="hubMonthIndex">01 / 13</span>
+          <!-- Zooming Assembly Chamber -->
+          <div class="wheel-chamber" id="wheelChamber">
+            
+            <!-- OUTER TIER: 13 Ethiopian Months Dial (Anti-Clockwise Ambient) -->
+            <div class="dial-wheel tier-outer" id="dialWheel">
+              <!-- 13 Month Nodes dynamically populated -->
             </div>
+
+            <!-- MIDDLE TIER: 30 Numerical Days Ring (Clockwise Ambient) -->
+            <div class="dial-wheel tier-middle" id="daysWheel">
+              <!-- 30 Day Nodes dynamically populated -->
+            </div>
+
+            <!-- INNER TIER: 7 Weekdays Ring (Anti-Clockwise Ambient) -->
+            <div class="dial-wheel tier-inner" id="weekdaysWheel">
+              <!-- 7 Weekday Nodes dynamically populated -->
+            </div>
+
+            <!-- Central Core Hub -->
+            <div class="dial-center-hub">
+              <span id="hubYearLabel" class="hub-year">---- E.C.</span>
+              <span id="hubGeezMonth" class="hub-geez">--</span>
+              <span id="hubEnMonth" class="hub-en">---</span>
+              <div class="hub-pill">
+                <span id="hubMonthIndex">-- / 13</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
         <!-- Wheel Bottom Controls -->
         <div class="wheel-controls">
-          <button id="todayBtn" class="btn btn-gold">PRESENT TIME</button>
+          <button id="todayBtn" class="btn btn-gold">
+            PRESENT TIME
+          </button>
           <div class="year-control">
             <button id="prevYearBtn" class="btn-icon" aria-label="Previous Year">&minus;</button>
             <span id="yearReadout">2019 E.C.</span>
@@ -105,14 +124,14 @@
           <button class="nav-tab" data-tab="converterTab">SYNC ENGINE</button>
         </nav>
 
-        <!-- TAB 1: Complete Month Calendar Grid (Replaces Horizontal Scroll) -->
+        <!-- TAB 1: Complete Month Calendar Grid -->
         <div id="calendarTab" class="tab-panel active">
           <div class="panel-header">
             <div>
-              <span class="label">FULL MONTH VIEW</span>
-              <h3 id="calTitle" class="panel-title">MESKEREM (መስከረም)</h3>
+              <span class="label">MONTHLY CHRONOLOGY</span>
+              <h3 id="calTitle" class="panel-title">--</h3>
             </div>
-            <span id="evangelistBadge" class="badge gold-badge">Zemen Yohannes</span>
+            <span id="evangelistBadge" class="badge gold-badge">--</span>
           </div>
 
           <!-- Days of Week Header Bar -->
@@ -128,12 +147,12 @@
 
           <!-- 7x5 Days Calendar Grid Layout -->
           <div class="days-calendar-grid" id="daysGrid">
-            <!-- 30 Calendar Days rendered dynamically -->
+            <!-- Calendar Days rendered dynamically -->
           </div>
 
           <div class="calendar-footer">
-            <span id="selectedDayLabel">SELECTED DAY: 01 Meskerem 2019</span>
-            <span id="holidayNotice" class="holiday-pill">Enkutatash (New Year)</span>
+            <span id="selectedDayLabel">SELECTED DAY: --</span>
+            <span id="holidayNotice" class="holiday-pill">--</span>
           </div>
         </div>
 
@@ -146,51 +165,51 @@
           <div class="info-grid">
             <div class="info-box">
               <span class="info-label">SEASON / ወራት</span>
-              <span id="infoSeason" class="info-val">Tsedey (Spring)</span>
+              <span id="infoSeason" class="info-val">--</span>
             </div>
             <div class="info-box">
               <span class="info-label">HOLIDAYS & FEASTS</span>
-              <span id="infoHolidays" class="info-val">Enkutatash (New Year)</span>
+              <span id="infoHolidays" class="info-val">--</span>
             </div>
             <div class="info-box">
               <span class="info-label">GREGORIAN SPAN</span>
-              <span id="infoGregSpan" class="info-val">Sep 11 - Oct 10</span>
+              <span id="infoGregSpan" class="info-val">--</span>
             </div>
             <div class="info-box">
               <span class="info-label">TOTAL DAYS IN MONTH</span>
-              <span id="infoDaysCount" class="info-val">30 Days</span>
+              <span id="infoDaysCount" class="info-val">--</span>
             </div>
           </div>
 
           <div class="astronomical-meta">
             <div class="meta-row">
-              <span>JULIAN DAY NUMBER (JDN)</span>
-              <span id="jdnVal" class="mono">2,461,300.5</span>
+              <span>PRESENT JULIAN DAY NUMBER (JDN)</span>
+              <span id="jdnVal" class="mono">--</span>
             </div>
             <div class="meta-row">
-              <span>SOLAR TIME OFFSET</span>
+              <span>ETHIOPIAN SOLAR TIME OFFSET</span>
               <span class="mono">+6 Hours Relative to UTC</span>
             </div>
           </div>
         </div>
 
-        <!-- TAB 3: Converter Sync Engine -->
+        <!-- TAB 3: Realtime Date Converter Engine -->
         <div id="converterTab" class="tab-panel">
           <div class="panel-header">
-            <h3>DATE CONVERSION ENGINE</h3>
+            <h3>REAL-TIME DATE CONVERSION ENGINE</h3>
           </div>
 
           <div class="converter-wrapper">
             <div class="field-group">
-              <label for="gregInput">GREGORIAN CALENDAR DATE</label>
+              <label for="gregInput">SELECT GREGORIAN CALENDAR DATE</label>
               <input type="date" id="gregInput" class="void-input">
             </div>
 
             <div class="converter-result">
               <span class="result-label">ETHIOPIAN CHRONOLOGY EQUIVALENT</span>
-              <h2 id="ethioResultGeez" class="result-geez">መስከረም ፩, ፪ሽ፲፱</h2>
-              <p id="ethioResultEn" class="result-en">Meskerem 01, 2019 E.C.</p>
-              <span id="ethioResultWeekday" class="result-weekday">Maksagno (Tuesday)</span>
+              <h2 id="ethioResultGeez" class="result-geez">--</h2>
+              <p id="ethioResultEn" class="result-en">--</p>
+              <span id="ethioResultWeekday" class="result-weekday">--</span>
             </div>
           </div>
         </div>
