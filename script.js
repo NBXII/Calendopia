@@ -1,6 +1,7 @@
 /**
  * CALENDOPIA ORBITAL ENGINE - ISOLATED ROTATING RINGS
  * Alternating Anti-Clockwise & Clockwise Ambient Motion (Visual Only)
+ * Mobile & Touch Precision Responsiveness Refactored
  */
 
 document.addEventListener('DOMContentLoaded', () => {
